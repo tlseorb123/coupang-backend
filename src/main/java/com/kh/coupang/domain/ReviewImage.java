@@ -1,5 +1,6 @@
 package com.kh.coupang.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,23 +12,20 @@ import org.hibernate.annotations.DynamicInsert;
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
-public class Product {
+@Table(name="review_image")
+public class ReviewImage {
 
     @Id
-    @Column(name="prod_code")
+    @Column(name="revi_img_code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int prodCode; //prod_code
+    private int reviImgCode;
 
-    @Column(name="prod_name")
-    private String prodName; //prod_name
-
-    @Column
-    private int price;
-
-    @Column(name="prod_photo")
-    private String prodPhoto; // prod_photo
+    @Column(name="revi_url")
+    private String reviUrl;
 
     @ManyToOne
-    @JoinColumn(name="cate_code")
-    private Category category;
+    @JoinColumn(name="revi_code")
+    @JsonIgnore
+    private Review review;
+
 }

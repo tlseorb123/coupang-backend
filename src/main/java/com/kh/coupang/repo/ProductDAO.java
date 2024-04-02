@@ -11,5 +11,6 @@ public interface ProductDAO extends JpaRepository<Product, Integer> {
 
     // 특정 카테고리의 모든 상품 조회
     @Query(value="SELECT * FROM product WHERE cate_code=:code", nativeQuery = true)
-    List<Product> findByCateCode(@Param("code")Integer code);
+    List<Product> findByCateCode(@Param("code") Integer code);
+
 }
