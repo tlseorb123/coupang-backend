@@ -7,12 +7,13 @@ import com.kh.coupang.service.ReviewService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -71,8 +72,11 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public ResponseEntity<List<Review>> viewAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(review.viewAll());
+    public ResponseEntity<List<Review>> viewAll(@RequestParam(name="page", defaultValue = "1") int page) {
+        Sort sort = Sort.by("reviCode").descending();
+        Pageable pageable = PageRequest.of(page-1, 10, sort);
+
+        return ResponseEntity.status(HttpStatus.OK).body(review.viewAll(pageable).getContent());
     }
 
 
