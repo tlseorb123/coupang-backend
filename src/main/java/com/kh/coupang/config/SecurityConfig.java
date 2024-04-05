@@ -29,7 +29,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/signUp", "/login").permitAll()
+                                .requestMatchers("/signUp", "/login", "/api/public/**").permitAll()
                                 .requestMatchers("/api/product").hasRole("USER")
                                 .anyRequest().authenticated()
                 )
