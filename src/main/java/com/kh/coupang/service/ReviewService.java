@@ -33,5 +33,18 @@ public class ReviewService {
         return review.findAll(builder, pageable);
     }
 
+    // 이미지들 조회
+    public List<ReviewImage> viewImages(int code) {
+        return image.findByReviCode(code);
+    }
 
+    // 이미지 삭제
+    public void deleteImage(int code) {
+        image.deleteById(code);
+    }
+
+    // 리뷰 삭제
+    public void delete(int code) {
+        review.deleteById(code);
+    }
 }
